@@ -2,6 +2,7 @@
   "compilerOptions": {
     "types": ["node", "jest"],
     "baseUrl": "./",
+    "jsx": "react",
     "paths": {
       "@/*": ["src/*"]
     },
