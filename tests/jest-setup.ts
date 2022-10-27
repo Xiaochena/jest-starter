@@ -1,5 +1,18 @@
 import "jest-location-mock";
 import "@testing-library/jest-dom";
+import server from "./mockServer/server";
+
+beforeAll(() => {
+  server.listen();
+});
+
+afterEach(() => {
+  server.resetHandlers();
+});
+
+afterAll(() => {
+  server.close();
+});
 
 // 详情：https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
 Object.defineProperty(window, "matchMedia", {

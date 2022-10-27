@@ -1,12 +1,33 @@
-// tests/components/AuthButton/simple.test.tsx
+import server from "../../mockServer/server";
+import { rest } from "msw";
 import { render, screen } from "@testing-library/react";
 import AuthButton from "@/components/AuthButton";
 import React from "react";
+import { UserRoleType } from "@/apis/user";
 
-describe("AuthButton", () => {
-  it("可以正常展示", () => {
-    render(<AuthButton>登录</AuthButton>);
+// 初始化函数
+const setup = (userType: UserRoleType) => {
+  server.use(
+    rest.get("/api/role", async (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json({ userType }));
+    })
+  );
+};
 
-    expect(screen.getByText("登录")).toBeInTheDocument();
+describe("AuthButton Mock Http 请求", () => {
+  it("可以正确展示普通用户按钮内容", async () => {
+    setup("user");
+
+    render(<AuthButton>你好</AuthButton>);
+
+    expect(await screen.findByText("普通用户你好")).toBeInTheDocument();
+  });
+
+  it("可以正确展示管理员按钮内容", async () => {
+    setup("admin");
+
+    render(<AuthButton>你好</AuthButton>);
+
+    expect(await screen.findByText("管理员你好")).toBeInTheDocument();
   });
 });
