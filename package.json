@@ -12,6 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "@testing-library/react": "12.1.4",
+    "@testing-library/react-hooks": "8.0.0",
+    "@testing-library/user-event": "14.1.0",
     "@types/jest": "^27.4.1",
     "@types/jsdom": "^20.0.0",
     "@types/mockjs": "^1.0.7",
